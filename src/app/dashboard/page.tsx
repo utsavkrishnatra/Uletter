@@ -1,10 +1,9 @@
 import React from 'react'
-import Home from './modules/home/index'
+import Dashboard from '../modules/dashboard/dashboard'
+
 const page = () => {
   return (
-    <div>
-      <Home/>
-    </div>
+    <div><Dashboard/></div>
   )
 }
 

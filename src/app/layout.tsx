@@ -1,8 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import "@/app/shared/styles/globals.css"
+import Providers from "@/app/shared/utils/Providers";
+import localFont from "next/font/local";
+import dotenv from "dotenv";
+dotenv.config();
+// console.log("my public key is:",process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
+import { ClerkProvider } from '@clerk/nextjs'
 
-const inter = Inter({ subsets: ["latin"] });
+// const frontendApi =process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+const clashDisplay = localFont({
+  src: "./assets/fonts/ClashDisplay-Variable.ttf",
+  variable: "--font-clashDisplay",
+  weight: "700",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +25,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+   
+    <ClerkProvider>
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${clashDisplay.variable}`}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
+    </ClerkProvider>
+   
   );
 }
