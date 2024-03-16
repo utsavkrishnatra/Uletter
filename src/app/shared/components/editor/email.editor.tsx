@@ -5,7 +5,7 @@ import { DefaultJsonData } from "@/app/assets/mails/default";
 import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/react";
-// import { saveEmail } from "@/app/actions/save.email";
+import { saveEmail } from "@/actions/save.email";
 import toast from "react-hot-toast";
 // import { GetEmailDetails } from "@/app/actions/get.email-details";
 // import { sendEmail } from "@/app/shared/utils/email.sender";
@@ -45,19 +45,19 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
   };
 
   const saveDraft = async () => {
-    // const unlayer = emailEditorRef.current?.editor;
+    const unlayer = emailEditorRef.current?.editor;
 
-    // unlayer?.exportHtml(async (data) => {
-    //   const { design } = data;
-    //   await saveEmail({
-    //     title: subjectTitle,
-    //     content: JSON.stringify(design),
-    //     newsLetterOwnerId: user?.id!,
-    //   }).then((res: any) => {
-    //     toast.success(res.message);
-    //     history.push("/dashboard/write");
-    //   });
-    // });
+    unlayer?.exportHtml(async (data) => {
+      const { design } = data;
+      await saveEmail({
+        title: subjectTitle,
+        content: JSON.stringify(design),
+        newsLetterOwnerId: user?.id!,
+      }).then((res: any) => {
+        toast.success(res?.message);
+        history.push("/dashboard/write");
+      });
+    });
   };
 
 //   const getEmailDetails = async () => {
